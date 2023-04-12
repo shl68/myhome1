@@ -2,9 +2,11 @@ package com.example.myhome1.controller;
 
 import com.example.myhome1.repository.BoardRepository;
 import com.example.myhome1.model.Board;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,9 +37,13 @@ public class BoardController {
         return "board/form";
     }
     @PostMapping("/form")
-    public String greetingSubmit(@ModelAttribute Board board){
+    public String greetingSubmit(@Valid Board board, BindingResult bindingResult){
+
+        if (bindingResult.hasErrors()) {
+            return "board/form";
+        }
         boardRepository.save(board);
-        return "redirect/board/list";
+        return "redirect:/board/list";
 
     }
 }

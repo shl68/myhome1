@@ -47,12 +47,12 @@
             <tr th:each="board : ${boards}">
 
                 <td th:text="${board.id}">Mark</td>
-                <td th:text="${board.title}" th:href="@{/}">Otto</td>
+                <td><a th:text="${board.title}" th:href="@{/board/form(id=${board.id})}">Otto</a></td>
                 <td >홍길동</td>
             </tr>
         </table>
         <div class="text-right">
-            <a type="button" class="btn btn-primary" th:href="@{/board/form(id=${board.id})}">쓰기</a>
+            <a type="button" class="btn btn-primary" th:href="@{/board/form}">쓰기</a>
         </div>
     </div>
 
