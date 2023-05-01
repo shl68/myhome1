@@ -2,6 +2,7 @@ package com.example.myhome1.controller;
 
 import com.example.myhome1.repository.BoardRepository;
 import com.example.myhome1.model.Board;
+import com.example.myhome1.validator.BoardValidator;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,9 @@ public class BoardController {
 
     @Autowired
     private BoardRepository boardRepository;
+
+    @Autowired
+    private BoardValidator boardValidator;
     @GetMapping("/list")
     public String list(Model model){
         List<Board> boards = boardRepository.findAll();
@@ -38,7 +42,7 @@ public class BoardController {
     }
     @PostMapping("/form")
     public String greetingSubmit(@Valid Board board, BindingResult bindingResult){
-
+        boardValidator.validate(board, bindingResult);
         if (bindingResult.hasErrors()) {
             return "board/form";
         }
